@@ -24,6 +24,7 @@ namespace test_Engine
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
             glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
+            glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
             glTexImage2D(GL_TEXTURE_2D, 0, colorChannelArray[t_nrChannels], t_width, t_height, 0,
                 colorChannelArray[t_nrChannels], GL_UNSIGNED_BYTE, data);
             glGenerateMipmap(GL_TEXTURE_2D);

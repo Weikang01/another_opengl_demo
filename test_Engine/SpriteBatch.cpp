@@ -67,7 +67,6 @@ namespace test_Engine
 				glBindTexture(GL_TEXTURE_2D, _renderBatches[i].texture);
 
 			glDrawArrays(GL_TRIANGLES, _renderBatches[i].offset, _renderBatches[i].numVertices);
-
 		}
 	}
 
