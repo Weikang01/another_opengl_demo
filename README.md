@@ -7,4 +7,4 @@ test_Engine is a game engine based on the Bengine by the Youtube channel @Making
 
 **Zombie_project**
 
-![screenshot](D:\github_sync\another_opengl_tutorial\Zombie_project\Textures\screenshot.png)
+![screenshot](https://github.com/Weikang01/another_opengl_tutorial/blob/master/Zombie_project/Textures/screenshot.png)
