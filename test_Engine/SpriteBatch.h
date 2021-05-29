@@ -42,6 +42,7 @@ namespace test_Engine
 
 		void begin(GlyphSortType sortType = GlyphSortType::TEXTURE);
 		void end();
+		const std::vector<Glyph*>& getGlyphs() { return _glyphs; }
 		void draw(const glm::vec4& destRect, const glm::vec4& uvRect, const GLuint texture, const float depth , const glm::vec4& color);
 		void renderBatch();
 

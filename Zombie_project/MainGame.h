@@ -7,10 +7,9 @@
 #include <test_Engine/SpriteBatch.h>
 #include <test_Engine/Timing.h>
 
-#include "Agent.h"
 #include "Zombie.h"
-#include "Human.h"
-#include "Wall.h"
+#include "Player.h"
+
 #include "Bullet.h"
 #include "Level.h"
 
@@ -34,9 +33,15 @@ private:
 
 	void initSystem();
 
+	void initLevel();
+
 	void gameLoop();
 
 	void processInput();
+
+	void updateBullets();
+
+	void updateAgents();
 
 	void drawGame();
 
@@ -50,13 +55,14 @@ private:
 	SpriteBatch _spriteBatch;
 	FPSLimiter _fpsLimiter;
 
-	Agent _player;
+	Player* _player;
 	std::vector<Bullet> _bullets;
-	std::vector<Wall> _walls;
-	std::vector<Human> _humans;
-	std::vector<Zombie> _zombies;
+	std::vector<Human*> _humans;
+	std::vector<Zombie*> _zombies;
 	std::vector<Level*> _levels;
+	unsigned int _curLevel;
 
-	unsigned int _nrHumans, _nrZombies, _nrWalls;
+	int _nrHumansKilled; ///< Humans killed by player
+	int _nrZombiesKilled; ///< Zombies killed by player
 };
 

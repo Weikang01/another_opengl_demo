@@ -1,77 +1,62 @@
-#include "Bullet.h"
+#include <iostream>
 #include <test_Engine/GLTexture.h>
 #include <test_Engine/ResourceManager.h>
-#include <iostream>
+#include "Bullet.h"
+#include "Zombie.h"
+#include "Level.h"
 
 using test_Engine::GLTexture;
 using test_Engine::ResourceManager;
 
 
-Bullet::Bullet(glm::vec2 pos, glm::vec2 size, glm::vec2 dir, float speed, int lifeTime, const char* texturePath)
-	: _pos_and_size(pos.x, pos.y, size.x, size.y), _speed(speed), _direction(dir), _lifeTime(lifeTime), _getHit(false)
+Bullet::Bullet(glm::vec2 pos, glm::vec2 size, glm::vec2 dir, int damage,
+	float speed, int lifeTime, unsigned int textureID)
+	: _pos(pos), _size(size), _speed(speed), _damage(damage),
+	_direction(dir), _lifeTime(lifeTime), _getHit(false), _texture(textureID)
 {
-	_texture = 
-		test_Engine::ResourceManager::getTexture(texturePath);
 }
 
 Bullet::~Bullet()
 {
 }
 
-
-void Bullet::detectHit(const std::vector<Wall>& walls, std::vector<Zombie>& zombies)
+bool Bullet::update(const std::vector<std::string>& levelData)
 {
-
-	float _center_x{ _pos_and_size.x + _pos_and_size.z * .5f },
-		_center_y{ _pos_and_size.y + _pos_and_size.w * .5f };
-	glm::vec4 w_pos_and_size;
-	float test_x{0.f}, test_y{ 0.f };
-	for (size_t i = 0; i < walls.size(); i++)
-	{
-		test_x = _center_x;
-		test_y = _center_y;
-		w_pos_and_size = walls[i].getPos_and_size();
-		if (_center_x < w_pos_and_size.x) test_x = w_pos_and_size.x;
-		else if (_center_x > w_pos_and_size.x + w_pos_and_size.z) test_x = w_pos_and_size.x + w_pos_and_size.z;
-
-		if (_center_y < w_pos_and_size.y) test_y = w_pos_and_size.y;
-		else if (_center_y > w_pos_and_size.y + w_pos_and_size.w) test_y = w_pos_and_size.y + w_pos_and_size.w;
-
-		float distX = _center_x - test_x;
-		float distY = _center_y - test_y;
-
-		if (sqrtf((distX * distX) + (distY * distY)) < _pos_and_size.z)
-		{
-			_getHit = true;
-			return;
-		}
-	}
-	glm::vec2 _pos = glm::vec2(_pos_and_size.x, _pos_and_size.y);
-	glm::vec2 _z_pos{};
-	for (size_t i = 0; i < zombies.size(); i++)
-	{
-		_z_pos = zombies[i].getPos();
-		if (glm::distance(_z_pos, _pos)
-			< .5f * (_pos_and_size.z + zombies[i].getSize().x))
-		{
-			zombies[i] = zombies.back();
-			zombies.pop_back();
-			_getHit = true;
-			return;
-		}
-	}
-	_getHit = false;
-}
-
-bool Bullet::update()
-{
-	_pos_and_size.x += _direction.x * _speed;
-	_pos_and_size.y += _direction.y * _speed;
-	return (--_lifeTime) && (!_getHit);
+	_pos.x += _direction.x * _speed;
+	_pos.y += _direction.y * _speed;
+	return (_lifeTime--) && (!collideWithLevel(levelData));
 }
 
 void Bullet::draw(SpriteBatch& spriteBatch)
 {
 	glm::vec4 uv(0.f, 0.f, 1.f, 1.f);
-	spriteBatch.draw(_pos_and_size, uv, _texture.id, 0.f, glm::vec4(255, 255, 255, 255));
+	spriteBatch.draw(glm::vec4(_pos.x, _pos.y, _size.x, _size.y), uv, _texture, 0.f, glm::vec4(255, 255, 255, 255));
 }
+
+
+float diff_x;
+float diff_y;
+bool Bullet::collideWithAgent(Agent* agent)
+{
+	diff_x = agent->getPos().x + AGENT_WIDTH * .5f - _pos.x - _size.x * .5f;
+	diff_y = agent->getPos().y + AGENT_WIDTH * .5f - _pos.y - _size.y * .5f;
+
+	if (diff_x * diff_x + diff_y * diff_y < AGENT_WIDTH * AGENT_WIDTH * .25f)
+	{
+		agent->_health -= _damage;
+		return true;
+	}
+	return false;
+}
+
+bool Bullet::collideWithLevel(const std::vector<std::string>& levelData)
+{
+	int gridX = floor(_pos.x / TILE_WIDTH);
+	int gridY = floor(_pos.y / TILE_WIDTH);
+
+
+	if (gridY < 0 || gridX < 0 || gridY >= levelData.size() || gridX >= levelData[0].size())
+		return true;
+	return levelData[gridY][gridX] != '.';
+}
+
