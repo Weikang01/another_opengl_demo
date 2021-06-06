@@ -6,6 +6,7 @@
 #include "Level.h"
 
 using test_Engine::GLTexture;
+using test_Engine::ColorRGBA8;
 using test_Engine::ResourceManager;
 
 
@@ -20,17 +21,17 @@ Bullet::~Bullet()
 {
 }
 
-bool Bullet::update(const std::vector<std::string>& levelData)
+bool Bullet::update(const std::vector<std::string>& levelData, float deltaTime)
 {
-	_pos.x += _direction.x * _speed;
-	_pos.y += _direction.y * _speed;
+	_pos.x += _direction.x * _speed * deltaTime;
+	_pos.y += _direction.y * _speed * deltaTime;
 	return (_lifeTime--) && (!collideWithLevel(levelData));
 }
 
 void Bullet::draw(SpriteBatch& spriteBatch)
 {
 	glm::vec4 uv(0.f, 0.f, 1.f, 1.f);
-	spriteBatch.draw(glm::vec4(_pos.x, _pos.y, _size.x, _size.y), uv, _texture, 0.f, glm::vec4(255, 255, 255, 255));
+	spriteBatch.draw(glm::vec4(_pos.x, _pos.y, _size.x, _size.y), uv, _texture, 0.f, ColorRGBA8(255, 255, 255, 255));
 }
 
 

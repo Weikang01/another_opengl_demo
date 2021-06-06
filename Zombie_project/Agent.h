@@ -21,7 +21,7 @@ public:
 	virtual ~Agent() {}
 
 	virtual void update(const std::vector<std::string>& levelData,
-		std::vector<Human*>& humans, std::vector<Zombie*>& zombies) = 0;
+		std::vector<Human*>& humans, std::vector<Zombie*>& zombies, float deltaTime) = 0;
 
 
 	void draw(SpriteBatch& spriteBatch) const;
@@ -38,6 +38,7 @@ protected:
 	void collideWithTile(glm::vec2 tilePos);
 
 	glm::vec2 _pos;
+	glm::vec2 m_direction = glm::vec2(1.f, 0.f);
 	float _speed;
 	GLTexture _texture;
 };

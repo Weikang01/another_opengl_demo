@@ -16,10 +16,9 @@ namespace test_Engine
 		void end();
 
 		float calculateFPS();
-
+		float getDeltaTime();
 	private:
 		float _maxFPS, _frameTime;
 		unsigned int _startTicks;
-
 	};
 }

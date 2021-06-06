@@ -17,10 +17,13 @@ public:
 		float speed, int lifeTime, unsigned int textureID);
 	~Bullet();
 
-	bool update(const std::vector<std::string>& levelData);
+	bool update(const std::vector<std::string>& levelData, float deltaTime);
 	void draw(SpriteBatch& spriteBatch);
 
 	bool collideWithAgent(Agent* agent);
+
+	glm::vec2 getPos() { return _pos; }
+	glm::vec2 getSize() { return _size; }
 private:
 	bool collideWithLevel(const std::vector<std::string>& levelData);
 

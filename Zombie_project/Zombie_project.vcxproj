@@ -72,12 +72,12 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(SolutionDir)libraries/GLM/include;$(SolutionDir)libraries/SDL/include;$(SolutionDir)libraries/GLEW/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)libraries/SDL_TTF/include;$(SolutionDir);$(SolutionDir)libraries/GLM/include;$(SolutionDir)libraries/SDL/include;$(SolutionDir)libraries/GLEW/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)Debug/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir);$(SolutionDir)libraries/GLM/include;$(SolutionDir)libraries/SDL/include;$(SolutionDir)libraries/GLEW/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
+    <IncludePath>$(SolutionDir)libraries/SDL_TTF/include;$(SolutionDir);$(SolutionDir)libraries/GLM/include;$(SolutionDir)libraries/SDL/include;$(SolutionDir)libraries/GLEW/include;$(VC_IncludePath);$(WindowsSDK_IncludePath);</IncludePath>
     <LibraryPath>$(SolutionDir)Release/;$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -168,6 +168,7 @@
   <ItemGroup>
     <None Include="Levels\level1.lvl" />
     <None Include="Levels\demo.lvl" />
+    <None Include="Levels\level2.lvl" />
     <None Include="Shaders\basicColor_frag.glsl" />
     <None Include="Shaders\basicColor_vert.glsl" />
   </ItemGroup>

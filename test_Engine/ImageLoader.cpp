@@ -1,6 +1,6 @@
 #include "ImageLoader.h"
 #include "stb_image.h"
-#include "Errors.h"
+#include "engineErrors.h"
 #include <iostream>
 
 namespace test_Engine

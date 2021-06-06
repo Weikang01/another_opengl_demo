@@ -9,27 +9,27 @@ static std::uniform_real_distribution<float> _randRotate(glm::radians(-45.f), gl
 
 void Human::init()
 {
-	_targetDir.x = _rand(randomEngine);
-	_targetDir.y = _rand(randomEngine);
-	if (_targetDir.x == 0.f && _targetDir.y == 0.f) _targetDir.x = 1.f;
-	_targetDir = glm::normalize(_targetDir);
+	m_direction.x = _rand(randomEngine);
+	m_direction.y = _rand(randomEngine);
+	if (m_direction.x == 0.f && m_direction.y == 0.f) m_direction.x = 1.f;
+	m_direction = glm::normalize(m_direction);
 }
 
 void Human::update(const std::vector<std::string>& levelData,
-	std::vector<Human*>& humans, std::vector<Zombie*>& zombies)
+	std::vector<Human*>& humans, std::vector<Zombie*>& zombies, float deltaTime)
 {
 	if (_frame > 120)
 	{
-		_targetDir = glm::rotate(_targetDir, _randRotate(randomEngine));
+		m_direction = glm::rotate(m_direction, _randRotate(randomEngine));
 		_frame = 0;
 	}
 	else
 		_frame++;
 
-	_pos += _targetDir * _speed;
+	_pos += m_direction * _speed * deltaTime;
 	if (collideWithLevel(levelData))
 	{
-		_targetDir = glm::rotate(_targetDir, _randRotate(randomEngine));
+		m_direction = glm::rotate(m_direction, _randRotate(randomEngine));
 	}
 }
 

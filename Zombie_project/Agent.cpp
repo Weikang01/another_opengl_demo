@@ -48,7 +48,7 @@ void Agent::draw(SpriteBatch& spriteBatch) const
 {
 	glm::vec4 uv(0.f, 0.f, 1.f, 1.f);
 	spriteBatch.draw(glm::vec4(_pos.x, _pos.y, AGENT_WIDTH, AGENT_WIDTH), uv,
-		_texture.id, 0.f, glm::vec4(255, 255, 255, 255));
+		_texture.id, 0.f, test_Engine::ColorRGBA8(255, 255, 255, 255), m_direction);
 }
 
 void Agent::checkTilePositions(const std::vector<std::string>& levelData,

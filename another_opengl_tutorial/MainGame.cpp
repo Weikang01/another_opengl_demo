@@ -144,17 +144,17 @@ void MainGame::processInput()
 			break;
 		}
 	}
-	if (_inputManager.isKeyPressed(SDLK_w))
+	if (_inputManager.isKeyDown(SDLK_w))
 		_camera.setPosition(_camera.getPosition() + glm::vec2(0.f, CAM_SPEED));
-	if (_inputManager.isKeyPressed(SDLK_s))
+	if (_inputManager.isKeyDown(SDLK_s))
 		_camera.setPosition(_camera.getPosition() - glm::vec2(0.f, CAM_SPEED));
-	if (_inputManager.isKeyPressed(SDLK_d))
+	if (_inputManager.isKeyDown(SDLK_d))
 		_camera.setPosition(_camera.getPosition() + glm::vec2(CAM_SPEED, 0.f));
-	if (_inputManager.isKeyPressed(SDLK_a))
+	if (_inputManager.isKeyDown(SDLK_a))
 		_camera.setPosition(_camera.getPosition() - glm::vec2(CAM_SPEED, 0.f));
-	if (_inputManager.isKeyPressed(SDLK_SPACE) || _inputManager.isKeyPressed(SDLK_ESCAPE) || _inputManager.isKeyPressed(SDLK_RETURN))
+	if (_inputManager.isKeyDown(SDLK_SPACE) || _inputManager.isKeyDown(SDLK_ESCAPE) || _inputManager.isKeyDown(SDLK_RETURN))
 		_gameState = GameState::EXIT;
-	if (_inputManager.isKeyPressed(SDL_BUTTON_LEFT))
+	if (_inputManager.isKeyDown(SDL_BUTTON_LEFT))
 	{
 		glm::vec2 mouseCoords = _camera.screenToWorld(_inputManager.getMouseCoord());
 

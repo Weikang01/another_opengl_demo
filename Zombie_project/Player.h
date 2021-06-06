@@ -23,7 +23,7 @@ public:
     void addGun(Gun* gun);
     void init(InputManager* inputManager, Camera2D* _camera, std::vector<Bullet>* bullets);
     void update(const std::vector<std::string>& levelData,
-        std::vector<Human*>& humans, std::vector<Zombie*>& zombies) override;
+        std::vector<Human*>& humans, std::vector<Zombie*>& zombies, float deltaTime) override;
 
 private:
     std::vector<Gun*> _guns;

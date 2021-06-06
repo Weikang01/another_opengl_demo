@@ -8,10 +8,11 @@
 Gun::Gun(const char* name, int fireRate,
 	int bulletsPerShot, float spread,
 	const char* projectileTexturePath, float projSize,
-	int damage, float projSpeed, int projLifeTime)
+	int damage, float projSpeed, int projLifeTime, SoundEffect fireSoundFX)
 	:_name(name), _fireRate(fireRate), _bulletsPerShot(bulletsPerShot),
 	_spread(spread), _projSize(projSize), _damage(damage), 
-	_projLifeTime(projLifeTime), _projSpeed(projSpeed), _frameCounter(0)
+	_projLifeTime(projLifeTime), _projSpeed(projSpeed), _frameCounter(0.f),
+	_fireSoundFX(fireSoundFX)
 {
 	_projectileTextID =
 		test_Engine::ResourceManager::getTexture(projectileTexturePath).id;
@@ -19,21 +20,23 @@ Gun::Gun(const char* name, int fireRate,
 }
 
 void Gun::update(bool isTriggered, const glm::vec2& _firePos, const glm::vec2& direction,
-	std::vector<Bullet>& bullets)
+	std::vector<Bullet>& bullets, float deltaTime)
 {
+	_frameCounter+= 1.f * deltaTime;
 	if (!isTriggered)
 		return;
-	_frameCounter++;
 	if (_frameCounter >= _fireRate)
 	{
 		fire(_firePos, direction, bullets);
-		_frameCounter = 0;
+		_frameCounter = 0.f;
 	}
 }
 
 void Gun::fire(const glm::vec2& _firePos, const glm::vec2& direction, std::vector<Bullet>& bullets)
 {
 	static std::mt19937 randomEngine((time(nullptr)));
+
+	_fireSoundFX.play();
 
 	for (unsigned int i = 0; i < _bulletsPerShot; i++)
 	{

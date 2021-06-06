@@ -4,8 +4,10 @@
 
 namespace test_Engine
 {
+	static constexpr float MS_PER_SECOND = 1000.f;
+
 	FPSLimiter::FPSLimiter()
-		:_maxFPS(0.f), _frameTime(0.f)
+		:_maxFPS(0.f), _frameTime(0.f), _startTicks(0)
 	{
 	}
 

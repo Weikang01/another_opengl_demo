@@ -1,6 +1,7 @@
 #include "Camera2D.h"
 #include <glew.h>
 #include "stb_image_write.h"
+#include <iostream>
 
 namespace test_Engine
 {
@@ -46,6 +47,26 @@ namespace test_Engine
 		screenCoords += _position;
 		return screenCoords;
 	}
+
+
+	bool Camera2D::isBoxInView(const glm::vec2& pos, const glm::vec2& size)
+	{
+		glm::vec2 scaledScreenSize = glm::vec2(_screen_width, _screen_height) / _scale;
+
+
+		const float MIN_DISTANCE_X = size.x * .5f + scaledScreenSize.x * .5f;
+		const float MIN_DISTANCE_Y = size.y * .5f + scaledScreenSize.y * .5f;
+
+		glm::vec2 centerPos = pos + .5f * size;
+		glm::vec2 distVec = centerPos - _position;
+
+		float xDepth = MIN_DISTANCE_X - abs(distVec.x);
+		float yDepth = MIN_DISTANCE_Y - abs(distVec.y);
+
+		return xDepth > 0 && yDepth > 0;
+	}
+
+
 	bool Camera2D::screenshot(const char* filename)
 	{
 		if (_frame < _MIN_INTERVAL)

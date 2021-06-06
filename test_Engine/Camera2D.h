@@ -20,6 +20,8 @@ namespace test_Engine
 
 		glm::vec2 screenToWorld(glm::vec2 coords);
 
+		bool isBoxInView(const glm::vec2& pos, const glm::vec2& size);
+
 		void setPosition(const glm::vec2& newPos) { _needsMatUpdate = true; _position = newPos; }
 		void setScale(const float newScale) { if (newScale > _MIN_SCALE) { _needsMatUpdate = true; _scale = newScale; } }
 
